@@ -5,7 +5,7 @@ import CheckpointPanel from './components/CheckpointPanel'
 import QueryInput from './components/QueryInput'
 import ReportView from './components/ReportView'
 
-const API_BASE = 'http://localhost:8000'
+const API_BASE = 'https://web-production-e19cc.up.railway.app'
 
 export default function App() {
   const [phase, setPhase] = useState<AppPhase>('idle')
