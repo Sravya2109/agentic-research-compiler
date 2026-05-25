@@ -10,7 +10,7 @@ A production-grade multi-agent AI system that autonomously researches any topic 
 
 ## 📺 Live Demo
 
-**[Coming soon]**
+**[🔬 Agentic Research Compiler](https://agentic-research-compiler.vercel.app)**
 
 Watch a research query flow through the system:
 - User submits: _"Analyze the competitive landscape of AI coding assistants"_
@@ -21,6 +21,8 @@ Watch a research query flow through the system:
 - Writer generates a multi-section report with citations
 - Critique agent validates claims against sources, sends back to writer if needed
 - Final report delivered with confidence scores per section
+
+**Backend API**: `https://web-production-e19cc.up.railway.app`
 
 ---
 
@@ -114,6 +116,14 @@ All LLM calls are traced via LangSmith. State accumulates event metadata for deb
 | **Styling** | Tailwind CSS |
 
 ---
+
+## ✨ Frontend Features
+
+- **Real-time SSE streaming**: Live agent activity feed with status indicators
+- **Gradient UI**: Modern gradients, icons, and smooth animations
+- **Human checkpoint review**: Approve analyst findings or add direction before report generation
+- **Interactive report**: Multi-section reports with confidence scores, citations, and markdown download
+- **Responsive design**: Mobile-friendly React + TypeScript + Vite stack
 
 ## 🚀 How to Run Locally
 
