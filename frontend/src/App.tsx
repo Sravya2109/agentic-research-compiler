@@ -83,19 +83,19 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <header className="bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 border-b border-blue-800 px-6 py-6 shadow-lg">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-semibold text-gray-900">Agentic Research Compiler</h1>
-            <p className="text-sm text-gray-500">Multi-agent AI research system</p>
+            <h1 className="text-2xl font-bold text-white">🔬 Agentic Research Compiler</h1>
+            <p className="text-sm text-blue-100 mt-1">Multi-agent AI research system</p>
           </div>
           {phase !== 'idle' && (
             <button
               onClick={handleReset}
-              className="text-sm text-gray-500 hover:text-gray-700 underline"
+              className="text-sm text-blue-100 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-lg transition-all duration-200"
             >
-              New research
+              ↻ New research
             </button>
           )}
         </div>
@@ -105,8 +105,8 @@ export default function App() {
         {phase === 'idle' && <QueryInput onSubmit={handleSubmit} />}
 
         {phase === 'error' && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
-            <span className="font-medium">Error: </span>{errorMessage}
+          <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 shadow-sm">
+            <span className="font-medium">⚠️ Error: </span>{errorMessage}
           </div>
         )}
 

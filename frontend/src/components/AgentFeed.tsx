@@ -10,6 +10,16 @@ const AGENT_LABELS: Record<string, string> = {
   system: 'System',
 }
 
+const AGENT_ICONS: Record<string, string> = {
+  orchestrator: '🎼',
+  search_agent: '🔍',
+  analyst: '📊',
+  human_checkpoint: '👤',
+  writer: '✍️',
+  critique: '🔍',
+  system: '⚙️',
+}
+
 const STATUS_BADGE: Record<string, string> = {
   completed: 'bg-green-100 text-green-800',
   paused: 'bg-yellow-100 text-yellow-800',
@@ -44,45 +54,53 @@ function eventDetail(evt: AgentEvent): string | null {
 
 export default function AgentFeed({ events, isRunning }: Props) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-        <h2 className="font-semibold text-gray-900">Agent Activity</h2>
+    <div className="bg-white rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-transparent">
+        <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+          <span>🤖</span> Agent Activity
+        </h2>
         {isRunning && (
           <span className="flex items-center gap-1.5 text-xs text-blue-600 font-medium">
-            <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-pulse" />
+            <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />
             Running
           </span>
         )}
       </div>
-      <ul className="divide-y divide-gray-50">
+      <ul className="divide-y divide-gray-100">
         {events.map((evt, i) => {
           const detail = eventDetail(evt)
+          const icon = AGENT_ICONS[evt.agent] ?? '•'
           return (
-            <li key={i} className="px-6 py-3 flex items-start gap-4">
-              <span
-                className={`mt-1 w-2 h-2 rounded-full flex-shrink-0 ${STATUS_DOT[evt.status] ?? 'bg-gray-400'}`}
-              />
+            <li key={i} className="px-6 py-4 flex items-start gap-4 hover:bg-blue-50/30 transition-colors duration-200">
+              <div className="flex flex-col items-center gap-1 mt-0.5">
+                <span className="text-lg">{icon}</span>
+                <span
+                  className={`w-2 h-2 rounded-full ${STATUS_DOT[evt.status] ?? 'bg-gray-400'}`}
+                />
+              </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs font-medium text-gray-800">
+                  <span className="text-sm font-semibold text-gray-800">
                     {AGENT_LABELS[evt.agent] ?? evt.agent}
                   </span>
                   <span
-                    className={`text-xs px-1.5 py-0.5 rounded font-medium ${STATUS_BADGE[evt.status] ?? 'bg-gray-100 text-gray-600'}`}
+                    className={`text-xs px-2 py-1 rounded-full font-medium ${STATUS_BADGE[evt.status] ?? 'bg-gray-100 text-gray-600'}`}
                   >
                     {evt.status}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 mt-0.5">{evt.message}</p>
-                {detail && <p className="text-xs text-gray-400 mt-0.5">{detail}</p>}
+                <p className="text-sm text-gray-700 mt-1">{evt.message}</p>
+                {detail && <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">ℹ️ {detail}</p>}
               </div>
             </li>
           )
         })}
         {isRunning && (
-          <li className="px-6 py-3 flex items-center gap-4 text-sm text-gray-400">
-            <span className="w-2 h-2 bg-gray-300 rounded-full animate-pulse flex-shrink-0" />
-            Processing...
+          <li className="px-6 py-4 flex items-center gap-4 text-sm text-gray-400 bg-blue-50/20">
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
+              Processing...
+            </span>
           </li>
         )}
       </ul>

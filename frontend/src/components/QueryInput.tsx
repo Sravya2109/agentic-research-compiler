@@ -27,27 +27,32 @@ export default function QueryInput({ onSubmit }: Props) {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-8 shadow-sm">
-      <h2 className="text-lg font-semibold text-gray-900 mb-1">What would you like to research?</h2>
-      <p className="text-sm text-gray-500 mb-6">
-        A team of AI agents will search the web, analyze findings, and compile a cited report.
-      </p>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="bg-white rounded-xl border border-gray-200 p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
+      <div className="flex items-start gap-3 mb-4">
+        <span className="text-2xl">🎯</span>
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">What would you like to research?</h2>
+          <p className="text-sm text-gray-500 mt-1">
+            A team of AI agents will search the web, analyze findings, and compile a cited report.
+          </p>
+        </div>
+      </div>
+      <form onSubmit={handleSubmit} className="space-y-4 mt-6">
         <textarea
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="e.g. Analyze the competitive landscape of AI coding assistants in 2025"
           rows={4}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200 hover:border-gray-400"
           disabled={isLoading}
         />
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-red-600 flex items-center gap-2">⚠️ {error}</p>}
         <button
           type="submit"
           disabled={isLoading || query.trim().length < 10}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg text-sm transition-colors"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-blue-300 disabled:to-blue-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg text-sm transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md"
         >
-          {isLoading ? 'Starting research...' : 'Start Research'}
+          {isLoading ? '⏳ Starting research...' : '🚀 Start Research'}
         </button>
       </form>
     </div>

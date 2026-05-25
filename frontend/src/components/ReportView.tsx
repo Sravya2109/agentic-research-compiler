@@ -15,25 +15,25 @@ function ConfidenceBar({ value }: { value: number }) {
 
 function SectionCard({ section }: { section: ReportSection }) {
   return (
-    <div className="border border-gray-200 rounded-lg p-5 space-y-3">
+    <div className="border border-gray-200 rounded-lg p-6 space-y-4 bg-gradient-to-br from-blue-50/30 to-transparent hover:shadow-md transition-shadow duration-300">
       <div className="flex items-start justify-between gap-4">
-        <h3 className="font-semibold text-gray-900 leading-snug">{section.title}</h3>
+        <h3 className="font-bold text-gray-900 leading-snug text-lg">{section.title}</h3>
         <div className="w-28 flex-shrink-0 pt-1">
           <ConfidenceBar value={section.confidence} />
         </div>
       </div>
       <p className="text-sm text-gray-700 leading-relaxed">{section.content}</p>
       {section.citations.length > 0 && (
-        <div>
-          <p className="text-xs font-medium text-gray-500 mb-1.5">Sources</p>
-          <ul className="space-y-1">
+        <div className="border-t border-gray-100 pt-4">
+          <p className="text-xs font-semibold text-gray-600 mb-2 flex items-center gap-1">📚 Sources</p>
+          <ul className="space-y-1.5">
             {section.citations.map((url, i) => (
               <li key={i}>
                 <a
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-blue-600 hover:underline break-all"
+                  className="text-xs text-blue-600 hover:text-blue-700 hover:underline break-all transition-colors duration-200"
                 >
                   {url}
                 </a>
@@ -78,35 +78,37 @@ interface Props {
 
 export default function ReportView({ report }: Props) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="px-6 py-5 border-b border-gray-100 flex items-start justify-between gap-4">
+    <div className="bg-white rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+      <div className="px-6 py-6 border-b border-gray-100 flex items-start justify-between gap-4 bg-gradient-to-r from-blue-50 to-transparent">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 leading-tight">{report.title}</h2>
-          <p className="text-sm text-gray-500 mt-1">
-            {report.total_sources} sources &middot; {report.sections.length} sections
+          <h2 className="text-2xl font-bold text-gray-900 leading-tight flex items-center gap-2">
+            <span>📄</span> {report.title}
+          </h2>
+          <p className="text-sm text-gray-500 mt-2">
+            📚 {report.total_sources} sources · 📋 {report.sections.length} sections
           </p>
         </div>
         <button
           onClick={() => downloadMarkdown(report)}
-          className="flex-shrink-0 text-sm text-blue-600 hover:text-blue-700 border border-blue-200 hover:border-blue-300 px-3 py-1.5 rounded-lg transition-colors"
+          className="flex-shrink-0 text-sm text-blue-600 hover:text-blue-700 border border-blue-200 hover:border-blue-300 hover:bg-blue-50 px-4 py-2 rounded-lg transition-all duration-200 font-medium"
         >
-          Download .md
+          ⬇️ Download .md
         </button>
       </div>
 
-      <div className="px-6 py-5 space-y-7">
+      <div className="px-6 py-8 space-y-8">
         <section>
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-            Executive Summary
+          <h3 className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <span>📌</span> Executive Summary
           </h3>
-          <p className="text-gray-800 leading-relaxed">{report.executive_summary}</p>
+          <p className="text-gray-800 leading-relaxed text-base">{report.executive_summary}</p>
         </section>
 
         <section>
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
-            Sections
+          <h3 className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <span>📑</span> Sections
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {report.sections.map((s, i) => (
               <SectionCard key={i} section={s} />
             ))}
@@ -114,22 +116,22 @@ export default function ReportView({ report }: Props) {
         </section>
 
         <section>
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-            Key Takeaways
+          <h3 className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <span>💡</span> Key Takeaways
           </h3>
-          <ul className="space-y-1.5">
+          <ul className="space-y-2">
             {report.key_takeaways.map((t, i) => (
-              <li key={i} className="flex gap-2 text-sm text-gray-700">
-                <span className="text-blue-600 font-semibold flex-shrink-0">{i + 1}.</span>
-                {t}
+              <li key={i} className="flex gap-3 text-sm text-gray-700">
+                <span className="text-blue-600 font-bold flex-shrink-0">{i + 1}.</span>
+                <span>{t}</span>
               </li>
             ))}
           </ul>
         </section>
 
-        <section>
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-            Limitations
+        <section className="border-t border-gray-100 pt-6">
+          <h3 className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <span>⚠️</span> Limitations
           </h3>
           <p className="text-sm text-gray-600 leading-relaxed">{report.limitations}</p>
         </section>
